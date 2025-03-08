@@ -1,0 +1,6 @@
+ip = "10.11.11.1"
+port = 22
+username = "root"
+passPrompt = "password"
+password = "=*rN6M8DA2yKtZ-#"
+targetCmd = "build.sh"
