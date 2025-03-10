@@ -1,7 +1,7 @@
 import toml
 import subprocess
 import time
-from plyer import notification
+from notify import startGUI
 import sys
 import os
 import shutil
@@ -26,7 +26,7 @@ def load_config(config_path):
     with open(config_path, 'r') as f:
         config = toml.load(f)
     
-    required_keys = ['ip', 'port', 'password', 'passPrompt', 'username', 'targetCmd', 'notificationTimeout']
+    required_keys = ['ip', 'port', 'password', 'passPrompt', 'username', 'targetCmd']
     for key in required_keys:
         if key not in config:
             raise KeyError(f"Missing required key in config: {key}")
@@ -36,11 +36,6 @@ def load_config(config_path):
     except ValueError:
         raise ValueError("Port must be an integer.")
     
-    try:
-        config['notificationTimeout'] = int(config['notificationTimeout'])
-    except ValueError:
-        raise ValueError("notificationTimeout must be an integer.")
-    
     return config
 
 def main():
@@ -48,12 +43,14 @@ def main():
     config_path = 'config.toml'
     if not os.path.isfile(config_path):
         print(f"Error: Config file '{config_path}' not found.")
+        input("Press any key to exit...")
         sys.exit(1)
     
     try:
         config = load_config(config_path)
     except Exception as e:
         print(f"Error loading config: {e}")
+        input("Press any key to exit...")
         sys.exit(1)
     
     # SSHPass path resolution
@@ -61,6 +58,7 @@ def main():
         sshpass_path = get_sshpass_path()
     except FileNotFoundError as e:
         print(e)
+        input("Press any key to exit...")
         sys.exit(1)
     
     # Build the SSH command
@@ -97,17 +95,8 @@ def main():
             print("Process found. Next check in 10 seconds...")
             time.sleep(10)
             continue
-        
         print("Process not found. Sending notification and exiting.")
-        try:
-            notification.notify(
-                title='Process Not Found',
-                message='The target process is no longer running.',
-                app_name='terminal notifier',
-                timeout=config['notificationTimeout']
-            )
-        except Exception as e:
-            print(f"Failed to send notification: {e}")
+        startGUI()
         break
 
 if __name__ == '__main__':

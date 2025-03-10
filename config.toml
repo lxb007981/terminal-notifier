@@ -4,4 +4,3 @@ username = "root"
 passPrompt = "password"
 password = "=*rN6M8DA2yKtZ-#"
 targetCmd = "build.sh"
-notificationTimeout = 300
