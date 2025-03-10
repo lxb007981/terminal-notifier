@@ -26,7 +26,7 @@ def load_config(config_path):
     with open(config_path, 'r') as f:
         config = toml.load(f)
     
-    required_keys = ['ip', 'port', 'password', 'passPrompt', 'username', 'targetCmd']
+    required_keys = ['ip', 'port', 'password', 'passPrompt', 'username', 'targetCmd', 'notificationTimeout']
     for key in required_keys:
         if key not in config:
             raise KeyError(f"Missing required key in config: {key}")
@@ -35,6 +35,11 @@ def load_config(config_path):
         config['port'] = int(config['port'])
     except ValueError:
         raise ValueError("Port must be an integer.")
+    
+    try:
+        config['notificationTimeout'] = int(config['notificationTimeout'])
+    except ValueError:
+        raise ValueError("notificationTimeout must be an integer.")
     
     return config
 
@@ -99,7 +104,7 @@ def main():
                 title='Process Not Found',
                 message='The target process is no longer running.',
                 app_name='terminal notifier',
-                timeout=10
+                timeout=config['notificationTimeout']
             )
         except Exception as e:
             print(f"Failed to send notification: {e}")
