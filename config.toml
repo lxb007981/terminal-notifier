@@ -1,6 +1,18 @@
+[server1]
 ip = "10.11.11.1"
-port = 22
-username = "root"
-passPrompt = "password"
-password = "=*rN6M8DA2yKtZ-#"
+port = 20404
+username = "builduser"
+passPrompt = "Password"
+password = "0aaaa"
 targetCmd = "build.sh"
+
+[server2]
+ip = "710.11.11.2"
+port = 31588
+username = "builduser"
+passPrompt = "password"
+password = "8bbbb"
+targetCmd = "build.sh"
+
+[target]
+servers = ["server1", "server2"]

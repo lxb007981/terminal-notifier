@@ -24,7 +24,7 @@ jobs:
           pyinstaller --onefile --add-binary "sshpass.exe;." -n terminal_notifier src/main.py
       - name: Zip
         run: |
-          Compress-Archive -Path dist\terminal_notifier.exe, config.toml -DestinationPath dist\terminal_notifier.zip
+          Compress-Archive -Path dist\terminal_notifier.exe, config.toml, README.md -DestinationPath dist\terminal_notifier.zip
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
