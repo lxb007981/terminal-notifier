@@ -96,7 +96,7 @@ def main():
         for task in tasks:
             if task.finished:
                 continue
-            print(f"Checking {task.server}")
+            print(f"Checking {task.server} with command: {' '.join(task.ssh_cmd)}")
             try:
                 result = subprocess.run(
                     task.ssh_cmd,
