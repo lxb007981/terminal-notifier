@@ -82,6 +82,7 @@ def main():
     # Build the SSH command
         ssh_cmd = [
             sshpass_path,
+            '-k',
             '-p', config[server]['password'],
             '-P', config[server]['passPrompt'],
             'ssh',

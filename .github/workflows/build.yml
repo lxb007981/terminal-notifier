@@ -8,7 +8,7 @@ jobs:
       - name: Download sshpass
         uses: robinraju/release-downloader@v1
         with:
-          repository: 'xhcoding/sshpass-win32'
+          repository: 'lxb007981/sshpass-win32'
           latest: true
           fileName: 'sshpass.exe'
       - name: Setup Python 3.11
